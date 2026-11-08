@@ -41,4 +41,26 @@ Figures: `reports/figures/fig2_latency_ecdf.pdf`, `fig3_work_vs_latency.pdf`, `f
   edges, smaller hash maps in PPR.
 - ВЫВОД: 99.4 % of nodes carry a Wikidata QID, so QA datasets built on Wikidata can be joined to the
   index by QID.
-- Not measured: online RSS of the slicing process; cold-cache latency.
+- Not measured: cold-cache latency.
+
+## Online memory (measured inside the Python process, `K32GetProcessMemoryInfo`)
+
+Whole benchmark (2100 queries × 2 methods + warm-up): peak working set **591 MB** (includes
+file-backed pages of the 734 MB mapping), peak private commit **551 MB**, working set at exit 39 MB.
+Stage breakdown (separate run, 300 ball + 300 PPR slices):
+
+| Stage | private commit (MB) | working set (MB) |
+|---|---|---|
+| Python + NumPy, before opening the index | 370 | 25 |
+| after `Index.open` (mmap, header check) | 371 | 25 |
+| after `degrees()` (5.59 M × u32) | 392 | 50 |
+| after seed selection (NumPy temporaries) | 433 | 90 |
+| after 300 ball slices | 433 | 314 |
+| after 300 PPR slices | 435 | 415 |
+
+- ФАКТ: slicing itself adds ≈ 2 MB of anonymous memory over 600 queries; the growth of the working
+  set is file-backed mmap pages (reclaimable page cache).
+- ГИПОТЕЗА: the 370 MB baseline commit comes from NumPy's BLAS per-thread buffers (not from HOLM code);
+  to be checked with `OPENBLAS_NUM_THREADS=1`.
+- Repeated runs: p95 stayed within 6.8–7.1 ms (ball) and 29.7–32.7 ms (PPR) for random seeds,
+  14.0–14.6 ms (ball) and 32.2–39.0 ms (PPR) for hubs — all below 50 ms; PPR max varied 52–94 ms.
