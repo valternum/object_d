@@ -1,0 +1,7 @@
+@prefix yago: <http://yago-knowledge.org/resource/> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+<<	yago:Lyon	schema:location	yago:France	>>	schema:startDate	"1951"^^xsd:gYear	.
+<<	yago:Lyon	schema:location	yago:France	>>	schema:endDate	"2002"^^xsd:gYear	.
+<<	yago:France	yago:populationNumber	"68000000"^^xsd:integer	>>	yago:onDate	"2025"^^xsd:gYear	.
+<<	yago:Nowhere	schema:location	yago:France	>>	schema:startDate	"1900"^^xsd:gYear	.

@@ -1,0 +1,21 @@
+[package]
+name = "holm_native"
+description = "PyO3 bindings of the HOLM Rust core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lib]
+name = "holm_native"
+crate-type = ["cdylib"]
+
+[dependencies]
+hg_core = { path = "../hg_core" }
+hg_index = { path = "../hg_index" }
+hg_slice = { path = "../hg_slice" }
+numpy = "0.27.1"
+pyo3 = { version = "0.27.2", features = ["abi3-py312", "generate-import-lib"] }
+
+[lints]
+workspace = true

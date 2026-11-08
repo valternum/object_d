@@ -1,0 +1,72 @@
+@prefix yago: <http://yago-knowledge.org/resource/> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ys: <http://yago-knowledge.org/schema#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+
+# Excerpts adapted from the YAGO 4.6 schema (CC BY 4.0), same formatting.
+
+schema:Thing a sh:NodeShape ;
+	rdfs:label "Thing"@en ;
+	a rdfs:Class .
+
+schema:Place a sh:NodeShape ;
+	rdfs:subClassOf schema:Thing ;
+	owl:disjointWith schema:Person ;
+	rdfs:label "Place"@en ;
+	ys:fromClass wd:Q82794 ;
+	sh:property ys:endDate_property ;
+	a rdfs:Class .
+
+schema:AdministrativeArea a sh:NodeShape ;
+	rdfs:subClassOf schema:Place ;
+	sh:property ys:capital_property ;
+	a rdfs:Class .
+
+schema:City a sh:NodeShape ;
+	rdfs:subClassOf schema:AdministrativeArea ;
+	rdfs:label "City"@en ;
+	ys:fromClass wd:Q7930989, wd:Q515 ;
+	a rdfs:Class .
+
+schema:Organization a sh:NodeShape ;
+	rdfs:subClassOf schema:Thing ;
+	owl:disjointWith schema:CreativeWork, schema:Person ;
+	a rdfs:Class .
+
+schema:Person a sh:NodeShape ;
+	rdfs:subClassOf schema:Thing ;
+	owl:disjointWith schema:Place, schema:Organization, schema:CreativeWork ;
+	a rdfs:Class .
+
+schema:CreativeWork a sh:NodeShape ;
+	rdfs:subClassOf schema:Thing ;
+	owl:disjointWith schema:Organization, schema:Person ;
+	rdfs:label "Creative work"@en ;
+	sh:property ys:musicBy_property, ys:endDate_property ;
+	a rdfs:Class .
+
+ys:capital_property
+		sh:path yago:capital ;
+		rdfs:label "capital"@en ;
+		rdfs:comment "The capital City of an AdministrativeArea"@en ;
+		ys:fromProperty wdt:P36 ;
+		sh:class schema:City .
+
+ys:musicBy_property
+		sh:path schema:musicBy ;
+		rdfs:label "music By"@en ;
+		rdfs:comment "The composer or musician for a Creative Work"@en ;
+		ys:fromProperty wdt:P86 ;
+		sh:or ([ sh:class schema:Organization ][ sh:class schema:Person]).
+
+ys:endDate_property
+		sh:path schema:endDate ;
+		rdfs:label "end Date"@en ;
+		sh:maxCount 1 ;
+		ys:fromProperty wdt:P576, wdt:P582 ;
+		sh:or ([ sh:datatype xsd:dateTime ][ sh:datatype xsd:date ][ sh:datatype xsd:gYearMonth ][ sh:datatype xsd:gYear]).

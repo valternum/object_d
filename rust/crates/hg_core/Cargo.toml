@@ -1,0 +1,17 @@
+[package]
+name = "hg_core"
+description = "Succinct primitives, typed incidence hypergraph and mmap container for HOLM"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+memmap2 = "0.9.12"
+thiserror = "2.0.21"
+
+[dev-dependencies]
+proptest = "=1.6.0"
+
+[lints]
+workspace = true

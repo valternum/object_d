@@ -1,0 +1,5 @@
+@prefix yago: <http://yago-knowledge.org/resource/> .
+@prefix schema: <http://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+yago:Capital_city	rdfs:subClassOf	schema:City	.
+yago:Capital_city	rdfs:label	"capital city"@en	.

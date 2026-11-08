@@ -1,0 +1,29 @@
+{
+  "_source": "holm-index build stdout and peak working set sampled by PowerShell (every 200-500 ms), 2026-11-08, commit 59192bd, Rust 1.99.1 x86_64-pc-windows-gnu release build",
+  "tiny": {
+    "input": "yago-4.6-tiny (schema + data split by scripts/yago/prepare.py)",
+    "nodes": 415228,
+    "edges": 148372,
+    "relations": 79,
+    "classes": 206694,
+    "type_pairs": 601945,
+    "intervals": 0,
+    "qids": 0,
+    "index_mb": 32.2,
+    "build_s": 20.031,
+    "peak_mb": 404
+  },
+  "full": {
+    "input": "yago-4.6 schema + taxonomy + facts (English-Wikipedia entities) + meta",
+    "nodes": 5589647,
+    "edges": 17786582,
+    "relations": 81,
+    "classes": 206342,
+    "type_pairs": 7012658,
+    "intervals": 446462,
+    "qids": 5556213,
+    "index_mb": 734.0,
+    "build_s": 385.469,
+    "peak_mb": 2495
+  }
+}

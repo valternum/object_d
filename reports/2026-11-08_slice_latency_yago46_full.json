@@ -1,0 +1,83 @@
+{
+  "index": "C:\\Users\\valte\\AppData\\Local\\Temp\\claude\\1a4a0b4bd32eab87\\09ed9257-4ca2-4873-bb62-fee54708c9af\\scratchpad\\yago46\\prep_full\\full.holmidx",
+  "index_bytes": 769696064,
+  "n_nodes": 5589647,
+  "n_edges": 17786582,
+  "connected_nodes": 5255692,
+  "max_degree": 1687162,
+  "open_seconds": 0.00032789999750093557,
+  "params": {
+    "max_nodes": 1024,
+    "hops": 2,
+    "delta": 16,
+    "alpha": 0.15,
+    "epsilon": 0.0001,
+    "scan_cap": 4096
+  },
+  "seed": 0,
+  "commit": "86009b058219bafdd7f8a262c7b8086a41c0708f",
+  "hardware": {
+    "platform": "Windows-10-10.0.19045-SP0",
+    "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+    "cpu_count": 12,
+    "python": "3.12.8"
+  },
+  "results": [
+    {
+      "workload": "random_connected",
+      "method": "ball",
+      "queries": 2000,
+      "p50_ms": 1.6069,
+      "p95_ms": 6.806445,
+      "p99_ms": 9.615516999999999,
+      "max_ms": 13.3083,
+      "mean_ms": 2.3190036499999995,
+      "mean_nodes": 40.8485,
+      "mean_edges": 115.5705,
+      "mean_work": 55.2565,
+      "max_work": 272
+    },
+    {
+      "workload": "random_connected",
+      "method": "ppr",
+      "queries": 2000,
+      "p50_ms": 21.148,
+      "p95_ms": 31.373615,
+      "p99_ms": 36.035473999999994,
+      "max_ms": 70.5595,
+      "mean_ms": 20.194479299999998,
+      "mean_nodes": 215.68,
+      "mean_edges": 1294.8875,
+      "mean_work": 5767.8065,
+      "max_work": 8616
+    },
+    {
+      "workload": "top_degree_hubs",
+      "method": "ball",
+      "queries": 100,
+      "p50_ms": 7.0604499999999994,
+      "p95_ms": 13.953775,
+      "p99_ms": 18.617825000000007,
+      "max_ms": 19.8479,
+      "mean_ms": 7.840022999999999,
+      "mean_nodes": 92.75,
+      "mean_edges": 413.71,
+      "mean_work": 201.87,
+      "max_work": 272
+    },
+    {
+      "workload": "top_degree_hubs",
+      "method": "ppr",
+      "queries": 100,
+      "p50_ms": 25.59095,
+      "p95_ms": 32.21797,
+      "p99_ms": 34.71174600000001,
+      "max_ms": 36.4983,
+      "mean_ms": 25.733065999999997,
+      "mean_nodes": 209.29,
+      "mean_edges": 1645.47,
+      "mean_work": 7596.93,
+      "max_work": 9285
+    }
+  ]
+}

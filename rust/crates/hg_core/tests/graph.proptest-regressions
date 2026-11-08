@@ -1,0 +1,10 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc 6765a6b50dbdc1ee2ab71643c50b0a09087c75192db79ac03c6d651c248f8dde # shrinks to raw = RawGraph { n: 1, prio: [0], edges: [] }
+cc 0ef6690162a0d840f6c1b272042adc67d003f2804eb04e5ba2fcf8584ddf6cec # shrinks to raw = RawGraph { n: 1, prio: [0], edges: [] }
+cc 711c3e1d9ab0bce1cef07447fc62c3c64ff3a7aeb57fb64802adf2ecd6b32a13 # shrinks to raw = RawGraph { n: 1, prio: [0], edges: [] }
+cc 16ca2105fcb4529704cda82f095b926370cb698600ddb81cb2130535ebeac579 # shrinks to raw = RawGraph { n: 1, prio: [0], edges: [] }, allowed_mask = 0
