@@ -1,0 +1,31 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/hg_core",
+    "crates/hg_index",
+    "crates/hg_slice",
+    "crates/holm_native",
+]
+# `holm_native` is a Python extension module: it is built by maturin and
+# tested from Python (tests/contract), so plain `cargo test` skips it.
+default-members = ["crates/hg_core", "crates/hg_index", "crates/hg_slice"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+rust-version = "1.82"
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+missing_debug_implementations = "warn"
+
+[workspace.lints.clippy]
+undocumented_unsafe_blocks = "deny"
+
+[profile.release]
+debug = 1
+codegen-units = 4
+
+[profile.test]
+opt-level = 1

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["maturin>=1.5,<2"]
+build-backend = "maturin"
+
+[project]
+name = "holm"
+version = "0.1.0"
+description = "HOLM: hypergraph-ontology language model (research prototype)"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = ["numpy"]
+
+[tool.maturin]
+python-source = "python"
+module-name = "holm.holm_native"
+manifest-path = "rust/crates/holm_native/Cargo.toml"
+features = ["pyo3/extension-module"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "contract: Rust implementation vs NumPy oracle",
+    "integration: multi-component pipeline tests",
+    "smoke: short training runs",
+    "resource: VRAM / RAM / latency limits",
+    "gpu: requires a CUDA device",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+src = ["python", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "NPY"]
+
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "python"
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["holm.holm_native"]
+ignore_missing_imports = true
