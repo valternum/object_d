@@ -35,7 +35,7 @@ Numbers are from the third run (commit `86009b0`, with `--raw-out` for the figur
 
 ## Conclusions
 
-- ФАКТ: on tiny, p95 ≤ 5.6 ms for both methods and both workloads, i.e. ≥ 9× below the 50 ms target.
+- ФАКТ: on tiny, p95 ≤ 5.6 ms for both methods and both workloads, i.e. about 9× below the 50 ms target.
 - ФАКТ: PPR work stays far below its bound M/(α·ε) = 66 667 (max mean 3993).
 - ВЫВОД: the tiny index (32 MB) fits in the page cache; the result says nothing about cold
   pages or about the full index. Acceptance of #15 requires the same run on the full
