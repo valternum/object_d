@@ -1,0 +1,21 @@
+[package]
+name = "hg_index"
+description = "Offline builder of the HOLM knowledge-graph index from YAGO 4.6 Turtle files"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "holm-index"
+path = "src/bin/holm-index.rs"
+
+[dependencies]
+hg_core = { path = "../hg_core" }
+thiserror = "2.0.21"
+
+[dev-dependencies]
+proptest = "=1.6.0"
+
+[lints]
+workspace = true

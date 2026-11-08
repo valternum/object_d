@@ -19,6 +19,7 @@ features = ["pyo3/extension-module"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra --strict-markers"
+pythonpath = ["python"]
 markers = [
     "contract: Rust implementation vs NumPy oracle",
     "integration: multi-component pipeline tests",
