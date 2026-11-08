@@ -21,6 +21,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "python"))
 
 import holm.holm_native as native  # noqa: E402
+
 from holm.retrieval.types import SliceParams  # noqa: E402
 
 
@@ -37,7 +38,9 @@ def percentiles(ns: list[int]) -> dict[str, float]:
 
 def git_commit() -> str:
     try:
-        return subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True).stdout.strip()
+        return subprocess.run(
+            ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
+        ).stdout.strip()
     except (OSError, subprocess.CalledProcessError):
         return "unknown"
 
@@ -55,7 +58,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--alpha", type=float, default=0.15)
     ap.add_argument("--epsilon", type=float, default=1e-4)
     ap.add_argument("--scan-cap", type=int, default=4096)
+    ap.add_argument(
+        "--raw-out", type=Path, default=None, help="optional .npz with per-query data for figures"
+    )
     args = ap.parse_args(argv)
+    raw: dict[str, np.ndarray] = {}
 
     t0 = time.perf_counter()
     ix = native.Index.open(str(args.index))
@@ -91,6 +98,11 @@ def main(argv: list[str] | None = None) -> int:
                 nodes.append(len(d["nodes"]))
                 edges.append(len(d["edges"]))
                 work.append(d["work"])
+            key = f"{wl}.{method}"
+            raw[f"{key}.latency_ns"] = np.asarray(ns, dtype=np.int64)
+            raw[f"{key}.work"] = np.asarray(work, dtype=np.int64)
+            raw[f"{key}.nodes"] = np.asarray(nodes, dtype=np.int64)
+            raw[f"{key}.edges"] = np.asarray(edges, dtype=np.int64)
             row = {
                 "workload": wl,
                 "method": method,
@@ -128,6 +140,12 @@ def main(argv: list[str] | None = None) -> int:
     }
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    if args.raw_out is not None:
+        values, counts = np.unique(deg, return_counts=True)
+        raw["degree.values"] = values.astype(np.int64)
+        raw["degree.counts"] = counts.astype(np.int64)
+        args.raw_out.parent.mkdir(parents=True, exist_ok=True)
+        np.savez_compressed(args.raw_out, **raw)
     return 0
 
 
