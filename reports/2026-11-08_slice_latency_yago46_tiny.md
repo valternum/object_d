@@ -24,16 +24,18 @@ A network download ran in the background during the measurement.
 
 | Workload | Method | n | p50 | p95 | p99 | max | mean nodes | mean edges | mean work |
 |---|---|---|---|---|---|---|---|---|---|
-| random connected | ball | 2000 | 0.035 | **0.318** | 0.616 | 0.705 | 12.5 | 14.0 | 13.8 |
-| random connected | ppr | 2000 | 0.336 | **4.928** | 5.657 | 6.345 | 127.6 | 191.2 | 2161.1 |
-| top-degree hubs | ball | 100 | 0.163 | **0.842** | 1.058 | 1.087 | 44.8 | 66.4 | 71.1 |
-| top-degree hubs | ppr | 100 | 2.389 | **5.349** | 5.961 | 6.155 | 257.6 | 383.7 | 3993.2 |
+| random connected | ball | 2000 | 0.036 | **0.346** | 0.621 | 0.801 | 12.5 | 14.0 | 13.8 |
+| random connected | ppr | 2000 | 0.364 | **5.206** | 5.978 | 11.255 | 127.6 | 191.2 | 2161.1 |
+| top-degree hubs | ball | 100 | 0.171 | **0.888** | 1.118 | 1.134 | 44.8 | 66.4 | 71.1 |
+| top-degree hubs | ppr | 100 | 2.408 | **5.552** | 6.444 | 6.998 | 257.6 | 383.7 | 3993.2 |
 
-Raw numbers: `reports/2026-11-08_slice_latency_yago46_tiny.json`.
+Numbers are from the third run (commit `86009b0`, with `--raw-out` for the figures), stored in
+`reports/2026-11-08_slice_latency_yago46_tiny.json`; the two earlier runs (commits `fb008af`,
+`59192bd`) differed by ≤ 0.3 ms at p95 and ≤ 4.9 ms at max.
 
 ## Conclusions
 
-- ФАКТ: on tiny, p95 ≤ 5.4 ms for both methods and both workloads, i.e. ≥ 9× below the 50 ms target.
+- ФАКТ: on tiny, p95 ≤ 5.6 ms for both methods and both workloads, i.e. ≥ 9× below the 50 ms target.
 - ФАКТ: PPR work stays far below its bound M/(α·ε) = 66 667 (max mean 3993).
 - ВЫВОД: the tiny index (32 MB) fits in the page cache; the result says nothing about cold
   pages or about the full index. Acceptance of #15 requires the same run on the full
