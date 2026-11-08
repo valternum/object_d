@@ -1,0 +1,17 @@
+[package]
+name = "hg_slice"
+description = "Per-query dynamic slicing (ball, PPR local push) over the HOLM hypergraph index"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+hg_core = { path = "../hg_core" }
+thiserror = "2.0.21"
+
+[dev-dependencies]
+proptest = "=1.6.0"
+
+[lints]
+workspace = true
